@@ -11,8 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        name: Check out code
+      - name: Check out code
+        uses: actions/checkout@v2
+
+#https://github.com/NCAR/jupyterhub-deploy/actions/runs/247686198/workflow
+      - name: Get SHA SHORT
+        id: get_sha_short
+        run: echo ::set-env name=GITHUB_SHA_SHORT::$(echo $GITHUB_SHA | cut -c 1-8)
+
+      - name: print github_sha_short
+        run: echo ${{ env.GITHUB_SHA_SHORT }}
+
+#https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions/64210623#64210623    
+    steps:
+      - name: Get branch name (merge)
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "GITHUB_BRANCH=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
+      - name: print github_branch
+        run: echo ${{ env.GITHUB_BRANCH }}
         
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
@@ -23,6 +46,6 @@ jobs:
           cache_from: 476728484325.dkr.ecr.us-west-2.amazonaws.com/demo
           repo: demo
           region: us-west-2
-          tags: latest
+          tags: "latest,${{ env.GITHUB_BRANCH }}-${{ env.GITHUB_SHA_SHORT }}"
           daemon_off: false
           dockerfile: dockerfiles/demo/Dockerfile
