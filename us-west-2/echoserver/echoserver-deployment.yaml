@@ -13,8 +13,9 @@ spec:
       labels:
         app: echoserver
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
-      - image: xxxxxxxxxxxx.dkr.ecr.us-west-2.amazonaws.com/demo:latest
+      - image: 476728484325.dkr.ecr.us-west-2.amazonaws.com/demo:latest
         imagePullPolicy: Always
         name: echoserver
         ports:

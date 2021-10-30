@@ -41,3 +41,12 @@ jobs:
           tags: "latest,${{ env.GITHUB_BRANCH }}-${{ env.GITHUB_SHA_SHORT }}"
           daemon_off: false
           dockerfile: dockerfiles/demo/Dockerfile
+
+      - name: deploy latest
+        uses: ianbelcher/eks-kubectl-action@master
+        with:
+          aws_access_key_id: ${{ secrets.aws_access_key_id }}}
+          aws_secret_access_key: ${{ secrets.aws_secret_access_key }}
+          aws_region: us-west-2
+          cluster_name: usw2-prod-01
+          args: set image --record deployment/echoserver echoserver=476728484325.dkr.ecr.us-west-2.amazonaws.com/demo:latest
