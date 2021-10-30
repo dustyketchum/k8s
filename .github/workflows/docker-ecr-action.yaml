@@ -23,7 +23,6 @@ jobs:
         run: echo ${{ env.GITHUB_SHA_SHORT }}
 
 #https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions/64210623#64210623    
-    steps:
       - name: Get branch name (merge)
         if: github.event_name != 'pull_request'
         shell: bash
