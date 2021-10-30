@@ -26,4 +26,3 @@ jobs:
           tags: latest
           daemon_off: false
           dockerfile: dockerfiles/demo/Dockerfile
-          context: example
