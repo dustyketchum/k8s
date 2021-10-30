@@ -5,8 +5,8 @@ on:
 name: docker build and push to ecr
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -29,15 +29,11 @@ jobs:
         shell: bash
         run: echo "GITHUB_BRANCH=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
         
-      - name: print aws_region
-        run: echo ${{ env.AWS_REGION }} 
+      - name: print aws_ecr_registry
+        run: echo ${{ secrets.aws_ecr_registry }}
 
-      - name: Get aws_region
-        shell: bash
-        run: echo "AWS_REGION=$(echo $AWS_REGION | tr / -)" >> $GITHUB_ENV
-
-      - name: print aws_region
-        run: echo ${{ env.AWS_REGION }} 
+      - name: print aws_ecr_repo
+        run: echo ${{ secrets.aws_ecr_repo }}
 
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
