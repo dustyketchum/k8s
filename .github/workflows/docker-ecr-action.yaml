@@ -29,20 +29,14 @@ jobs:
         shell: bash
         run: echo "GITHUB_BRANCH=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
         
-      - name: print aws_ecr_registry
-        run: echo ${{ secrets.aws_ecr_registry }}
-
-      - name: print aws_ecr_repo
-        run: echo ${{ secrets.aws_ecr_repo }}
-
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
         with:
           access_key: ${{ secrets.aws_access_key_id }}
           secret_key: ${{ secrets.aws_secret_access_key }}
-          registry: ${{ secrets.aws_ecr_registry }}
-          cache_from: ${{ secrets.aws_ecr_registry }}/${{ secrets.aws_ecr_repo }}
-          repo: ${{ secrets.aws_ecr_repo }}
+          registry: 476728484325.dkr.ecr.us-west-2.amazonaws.com
+          cache_from: 476728484325.dkr.ecr.us-west-2.amazonaws.com/demo
+          repo: demo
           region: us-west-2
           tags: "latest,${{ env.GITHUB_BRANCH }}-${{ env.GITHUB_SHA_SHORT }}"
           daemon_off: false
