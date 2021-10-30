@@ -1,9 +1,8 @@
 on:
   workflow_dispatch:
-  pull_request:
   push:
 
-name: Docker ecr action demo
+name: docker build and push to ecr
 
 jobs:
   deploy:
@@ -29,6 +28,16 @@ jobs:
         if: github.event_name == 'pull_request'
         shell: bash
         run: echo "GITHUB_BRANCH=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+        
+      - name: print aws_region
+        run: echo ${{ env.AWS_REGION }} 
+
+      - name: Get aws_region
+        shell: bash
+        run: echo "AWS_REGION=$(echo $AWS_REGION | tr / -)" >> $GITHUB_ENV
+
+      - name: print aws_region
+        run: echo ${{ env.AWS_REGION }} 
 
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
