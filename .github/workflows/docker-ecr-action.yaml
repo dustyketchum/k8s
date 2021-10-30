@@ -23,7 +23,7 @@ jobs:
           cache_from: 476728484325.dkr.ecr.us-west-2.amazonaws.com/demo
           repo: demo
           region: us-west-2
-          auto_tag: true
+          tags: latest
           daemon_off: false
           dockerfile: dockerfiles/demo/Dockerfile
           context: example
