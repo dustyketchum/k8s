@@ -38,7 +38,7 @@ jobs:
           registry: 476728484325.dkr.ecr.us-west-2.amazonaws.com
           cache_from: 476728484325.dkr.ecr.us-west-2.amazonaws.com/demo
           repo: demo
-          region: ${{ env.AWS_REGION }}
+          region: us-west-2
           tags: "latest,${{ env.GITHUB_BRANCH }}-${{ env.GITHUB_SHA_SHORT }}"
           daemon_off: false
           dockerfile: dockerfiles/demo/Dockerfile
