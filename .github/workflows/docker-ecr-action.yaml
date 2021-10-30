@@ -29,6 +29,9 @@ jobs:
         shell: bash
         run: echo "GITHUB_BRANCH=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
         
+      - name: print aws_access_key_id
+        run: echo ${{ secrets.aws_access_key_id }}
+        
       - name: print aws_ecr_registry
         run: echo ${{ secrets.aws_ecr_registry }}
 
