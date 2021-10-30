@@ -17,7 +17,8 @@ jobs:
 #https://github.com/NCAR/jupyterhub-deploy/actions/runs/247686198/workflow
       - name: Get SHA SHORT
         id: get_sha_short
-        run: echo ::set-env name=GITHUB_SHA_SHORT::$(echo $GITHUB_SHA | cut -c 1-8)
+        shell: bash
+        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-8)" >> $GITHUB_ENV
 
       - name: print github_sha_short
         run: echo ${{ env.GITHUB_SHA_SHORT }}
