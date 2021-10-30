@@ -16,12 +16,8 @@ jobs:
 
 #https://github.com/NCAR/jupyterhub-deploy/actions/runs/247686198/workflow
       - name: Get SHA SHORT
-        id: get_sha_short
         shell: bash
-        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-8)" >> $GITHUB_ENV
-
-      - name: print github_sha_short
-        run: echo ${{ env.GITHUB_SHA_SHORT }}
+        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-7)" >> $GITHUB_ENV
 
 #https://stackoverflow.com/questions/58033366/how-to-get-current-branch-within-github-actions/64210623#64210623    
       - name: Get branch name (merge)
@@ -34,9 +30,6 @@ jobs:
         shell: bash
         run: echo "GITHUB_BRANCH=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
 
-      - name: print github_branch
-        run: echo ${{ env.GITHUB_BRANCH }}
-        
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
         with:
