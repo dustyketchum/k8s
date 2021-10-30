@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+
+name: Docker ecr action demo
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out code
+        
+      - name: upload image to ECR
+        uses: appleboy/docker-ecr-action@master
+        with:
+          access_key: ${{ secrets.aws_access_key_id }}
+          secret_key: ${{ secrets.aws_secret_access_key }}
+          registry: 476728484325.dkr.ecr.us-west-2.amazonaws.com
+          cache_from: 476728484325.dkr.ecr.us-west-2.amazonaws.com/demo
+          repo: demo
+          region: us-west-2
+          auto_tag: true
+          daemon_off: false
+          dockerfile: dockerfiles/demo/Dockerfile
+          context: example
