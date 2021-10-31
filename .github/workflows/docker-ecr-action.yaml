@@ -49,4 +49,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.aws_secret_access_key }}
           aws_region: us-west-2
           cluster_name: usw2-prod-01
-          args: set image -n echoserver --record deployment/echoserver echoserver=476728484325.dkr.ecr.us-west-2.amazonaws.com/demo:latest
+          args: rollout restart deploy -n echoserver
