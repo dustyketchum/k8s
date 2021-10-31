@@ -1,0 +1,73 @@
+#https://medium.com/@rschoening/read-only-access-to-kubernetes-cluster-fcf84670b698
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  labels:
+  name: deploy
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - deployments
+  - replicasets
+  - horizontalpodautoscalers
+  verbs:
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - deployments
+  - replicasets
+  - horizontalpodautoscalers
+  verbs:
+  - patch
+  - update
+- apiGroups:
+  - extensions
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - replicasets
+  - horizontalpodautoscalers
+  verbs:
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - deployments
+  - replicasets
+  - horizontalpodautoscalers
+  verbs:
+  - patch
+  - update
+- apiGroups:
+  - batch
+  resources: ["*"]
+  verbs:
+  - get
+  - list
+  - watch

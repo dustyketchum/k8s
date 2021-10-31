@@ -2,11 +2,11 @@ on:
   workflow_dispatch:
   push:
 
-name: docker build and push to ecr
+name: Build and Deploy
 
 jobs:
   build:
-    name: Build
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
